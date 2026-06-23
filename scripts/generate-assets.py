@@ -102,9 +102,81 @@ def dashboard_image(width=1220, height=780):
     return image
 
 
+def audit_snapshot_image(width=1220, height=780):
+    image = Image.new("RGB", (width, height), (237, 244, 243))
+    draw = ImageDraw.Draw(image)
+
+    rounded(draw, (34, 34, width - 34, height - 34), 18, WHITE, LINE, 2)
+    rounded(draw, (58, 62, width - 58, 126), 8, (250, 251, 252), LINE, 1)
+    text(draw, (82, 82), "Inventory Audit Snapshot", 28, INK, True)
+    text(draw, (82, 114), "Prioritized cash, stockout, and reorder-policy opportunities", 15, MUTED)
+    rounded(draw, (width - 252, 78, width - 82, 116), 6, (236, 247, 246), (171, 216, 212), 1)
+    text(draw, (width - 230, 89), "ROI view", 15, TEAL, True)
+
+    summary = [
+        ("Cash unlocked", "$42.8K", TEAL, 0.78),
+        ("Lost-sales risk", "-23%", RED, 0.58),
+        ("Policy changes", "31 SKUs", BLUE, 0.66),
+    ]
+    y = 164
+    for label, value, color, bar in summary:
+        rounded(draw, (58, y, 530, y + 104), 8, WHITE, LINE, 1)
+        text(draw, (84, y + 22), label, 16, MUTED, True)
+        text(draw, (84, y + 52), value, 34, color, True)
+        draw.rounded_rectangle((280, y + 61, 490, y + 75), radius=7, fill=(232, 237, 242))
+        draw.rounded_rectangle((280, y + 61, int(280 + 210 * bar), y + 75), radius=7, fill=color)
+        y += 128
+
+    rounded(draw, (568, 164, width - 58, 500), 8, WHITE, LINE, 1)
+    text(draw, (596, 194), "SKU priority matrix", 22, INK, True)
+    text(draw, (596, 224), "Higher-risk products move first", 15, MUTED)
+    matrix = (628, 260, width - 102, 454)
+    draw.rectangle(matrix, outline=LINE, width=2)
+    mx0, my0, mx1, my1 = matrix
+    draw.line((mx0, (my0 + my1) // 2, mx1, (my0 + my1) // 2), fill=LINE, width=1)
+    draw.line(((mx0 + mx1) // 2, my0, (mx0 + mx1) // 2, my1), fill=LINE, width=1)
+    text(draw, (mx0, my1 + 18), "Holding cost", 13, MUTED)
+    text(draw, (mx1 - 120, my1 + 18), "Stockout risk", 13, MUTED)
+    points = [
+        (704, 404, TEAL),
+        (772, 348, BLUE),
+        (842, 386, TEAL),
+        (902, 296, RED),
+        (980, 326, RED),
+        (1046, 286, RED),
+    ]
+    for x, py, color in points:
+        draw.ellipse((x - 11, py - 11, x + 11, py + 11), fill=color, outline=WHITE, width=3)
+    text(draw, (904, 254), "Act now", 14, RED, True)
+
+    rounded(draw, (568, 520, width - 58, 736), 8, WHITE, LINE, 1)
+    text(draw, (596, 550), "Next-best policies", 20, INK, True)
+    rows = [
+        ("HNY-204", "Stockout exposure", "Reorder now"),
+        ("BEE-118", "Overstock", "Pause buying"),
+        ("KIT-722", "Slow demand", "Reduce target"),
+    ]
+    columns = [596, 758, 976]
+    headers = ["SKU", "Finding", "Action"]
+    for x, h in zip(columns, headers):
+        text(draw, (x, 594), h, 13, MUTED, True)
+    row_y = 628
+    for i, row in enumerate(rows):
+        if i % 2 == 0:
+            rounded(draw, (588, row_y - 11, width - 84, row_y + 31), 6, (247, 250, 252), None)
+        for x, cell in zip(columns, row):
+            fill = RED if cell == "Reorder now" else TEAL if cell == "Pause buying" else INK
+            text(draw, (x, row_y), cell, 15, fill, cell in {"Reorder now", "Pause buying"})
+        row_y += 38
+
+    return image
+
+
 def create_assets():
     dashboard = dashboard_image()
     dashboard.save(PUBLIC / "dashboard-preview.png")
+    audit_snapshot = audit_snapshot_image()
+    audit_snapshot.save(PUBLIC / "audit-snapshot.png")
 
     hero = Image.new("RGB", (1800, 1040), (250, 251, 252))
     draw = ImageDraw.Draw(hero)
