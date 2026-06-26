@@ -363,6 +363,7 @@ h1 {
 }
 
 .feature-card,
+.engagement-card,
 .price-card,
 .trust-grid article {
   min-height: 280px;
@@ -408,6 +409,7 @@ h1 {
 }
 
 .feature-card h3,
+.engagement-card h3,
 .price-card h3,
 .trust-grid h3,
 .process-list h3 {
@@ -417,11 +419,48 @@ h1 {
 }
 
 .feature-card p,
+.engagement-card p,
 .price-card p,
 .trust-grid p,
 .process-list p {
   color: var(--muted);
   line-height: 1.58;
+}
+
+.engagement-section {
+  background: var(--surface);
+  border-top: 1px solid var(--line);
+}
+
+.engagement-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.engagement-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 304px;
+}
+
+.engagement-card .engagement-type {
+  margin: 0 0 26px;
+  color: var(--red);
+  font-size: 0.76rem;
+  font-weight: 900;
+  letter-spacing: 0.06em;
+  line-height: 1.2;
+  text-transform: uppercase;
+}
+
+.engagement-card strong {
+  display: block;
+  margin-top: auto;
+  padding-top: 22px;
+  color: var(--ink);
+  font-size: 1.06rem;
+  line-height: 1.2;
 }
 
 .split-section {
@@ -680,6 +719,7 @@ h1 {
 
   .signal-band,
   .product-grid,
+  .engagement-grid,
   .pricing-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -741,6 +781,7 @@ h1 {
 
   .signal-band,
   .product-grid,
+  .engagement-grid,
   .pricing-grid {
     grid-template-columns: 1fr;
   }
@@ -764,6 +805,7 @@ h1 {
   }
 
   .feature-card,
+  .engagement-card,
   .price-card,
   .trust-grid article,
   .process-list > div {
