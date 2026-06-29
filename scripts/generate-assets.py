@@ -44,9 +44,9 @@ def dashboard_image(width=1220, height=780):
     rounded(draw, (34, 34, width - 34, height - 34), 18, WHITE, LINE, 2)
     rounded(draw, (58, 64, width - 58, 132), 8, (250, 251, 252), LINE, 1)
     text(draw, (82, 84), "Hive Terminal", 28, INK, True)
-    text(draw, (82, 116), "Weekly replenishment workspace", 15, MUTED)
-    rounded(draw, (width - 278, 78, width - 82, 118), 6, (254, 236, 239), (246, 190, 199), 1)
-    text(draw, (width - 258, 90), "18 SKUs need action", 15, RED, True)
+    text(draw, (82, 116), "Weekly replenishment workspace - illustrative sample data", 15, MUTED)
+    rounded(draw, (width - 320, 78, width - 82, 118), 6, (254, 236, 239), (246, 190, 199), 1)
+    text(draw, (width - 300, 90), "Sample data: 18 SKUs", 15, RED, True)
 
     cards = [
         ("Forecast accuracy", "91.4%", BLUE),
@@ -109,9 +109,9 @@ def audit_snapshot_image(width=1220, height=780):
     rounded(draw, (34, 34, width - 34, height - 34), 18, WHITE, LINE, 2)
     rounded(draw, (58, 62, width - 58, 126), 8, (250, 251, 252), LINE, 1)
     text(draw, (82, 82), "Inventory Audit Snapshot", 28, INK, True)
-    text(draw, (82, 114), "Prioritized cash, stockout, and reorder-policy opportunities", 15, MUTED)
+    text(draw, (82, 114), "Illustrative sample data - cash, stockout, and reorder-policy examples", 15, MUTED)
     rounded(draw, (width - 252, 78, width - 82, 116), 6, (236, 247, 246), (171, 216, 212), 1)
-    text(draw, (width - 230, 89), "ROI view", 15, TEAL, True)
+    text(draw, (width - 226, 89), "Sample data", 15, TEAL, True)
 
     summary = [
         ("Cash unlocked", "$42.8K", TEAL, 0.78),
@@ -207,12 +207,13 @@ def create_assets():
     text(draw, (74, 438), "Inventory optimization for SMB operators", 32, MUTED)
     rounded(draw, (860, 90, 1126, 540), 16, WHITE, LINE, 2)
     text(draw, (896, 134), "Hive Terminal", 24, INK, True)
+    text(draw, (896, 166), "Illustrative sample data", 15, MUTED)
     for idx, (label, value, color) in enumerate([
         ("Cash freed", "$42.8K", TEAL),
         ("Stockout risk", "-23%", RED),
         ("Forecast", "91.4%", BLUE),
     ]):
-        y = 198 + idx * 104
+        y = 216 + idx * 96
         rounded(draw, (896, y, 1090, y + 72), 8, (247, 250, 252), LINE, 1)
         text(draw, (914, y + 14), label, 16, MUTED)
         text(draw, (914, y + 38), value, 25, color, True)
